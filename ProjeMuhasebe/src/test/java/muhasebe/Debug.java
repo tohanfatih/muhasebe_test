@@ -63,9 +63,9 @@ public class Debug extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
-                .contentType("application/json").body("").
+                .contentType("application/json").
                         when().
-                        get("https://muhasebe-denetleme-backend.herokuapp.com/debug/");
+                        get("/debug/");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();
@@ -89,9 +89,9 @@ public class Debug extends Values {
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
-                .contentType("application/json").body("").
+                .contentType("application/json").
                         when().
-                        get("https://muhasebe-denetleme-backend.herokuapp.com/debug/get_sample_json");
+                        get("/debug/get_sample_json");
 
         String body = r.getBody().asString();
         int statusCode = r.getStatusCode();

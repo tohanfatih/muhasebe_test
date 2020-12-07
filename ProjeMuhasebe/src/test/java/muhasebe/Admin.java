@@ -26,8 +26,7 @@ public class Admin extends Values {
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                //.contentType(ContentType.JSON)
-                .contentType("application/json").queryParam("kwargs","kwargs").body("").
+                .contentType("application/json").queryParam("kwargs","kwargs").
                         when().
                         get("/admin/check-access");
 

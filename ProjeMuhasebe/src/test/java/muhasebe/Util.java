@@ -22,8 +22,6 @@ public class Util {
     static String randomid1 = String.valueOf(random_id);
 
 
-    static String userUrl = "https://muhasebe-denetleme-backend.herokuapp.com/user";
-
     public static void register(ITestContext context) {
 
 

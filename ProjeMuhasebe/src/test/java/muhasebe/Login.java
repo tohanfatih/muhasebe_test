@@ -34,7 +34,10 @@ public class  Login extends Values{
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
                 .contentType("application/json").
-                        body("").
+                        body("{\n" +
+                                "  \"id\": \""+getRandomid()+"\",\n" +
+                                "  \"password\": \"1234\"\n" +
+                                "}").
                         when().
                         post("/get_token/");
 
@@ -51,18 +54,17 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
-        Assert.assertEquals(jsonPathEvaluator.get("id"),getRandomid(),  "ID returned was false !");
+        //Assert.assertEquals(jsonPathEvaluator.get("id"),getRandomid(),  "ID returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
 
     }
-    /*@Test
+    @Test
     public void authenticate(ITestContext context) {
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
-                .contentType("application/json").
-                        body("").
+                .contentType("application/json").queryParam("username",getRandomid()).queryParam("password","1234").
                         when().
                         post("/authenticate");
 
@@ -79,11 +81,11 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 307, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 307 Temporary Redirect", "Status line returned was false !");
-        Assert.assertEquals(jsonPathEvaluator.get("name"),getName1(),  "Name returned was false !");
+        //Assert.assertEquals(jsonPathEvaluator.get("name"),getName1(),  "Name returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
 
         }
-        */
+
 
     @Test
     public void admin_login(ITestContext context) {
@@ -92,7 +94,10 @@ public class  Login extends Values{
                 .header("Authorization", "Bearer " + context.getAttribute("access_token"))
                 //.contentType(ContentType.JSON)
                 .contentType("application/json").
-                        body("").
+                        body("{\n" +
+                                "  \"id\": \""+getRandomid()+"\",\n" +
+                                "  \"password\": \"1234\"\n" +
+                                "}").
                         when().
                         post("/admin-login");
 
@@ -109,7 +114,7 @@ public class  Login extends Values{
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
-        Assert.assertEquals(jsonPathEvaluator.get("id"),getRandomid(),  "ID returned was false !");
+        //Assert.assertEquals(jsonPathEvaluator.get("id"),getRandomid(),  "ID returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
 
     }
