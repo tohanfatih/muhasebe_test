@@ -58,7 +58,7 @@ public class  Login extends Values{
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
 
     }
-    @Test
+    /*@Test
     public void authenticate(ITestContext context) {
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
@@ -84,7 +84,7 @@ public class  Login extends Values{
         //Assert.assertEquals(jsonPathEvaluator.get("name"),getName1(),  "Name returned was false !");
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
 
-        }
+        }*/
 
 
     @Test
