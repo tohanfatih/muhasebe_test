@@ -19,6 +19,7 @@ public class User extends Values {
 
     @BeforeClass
     public static void register (ITestContext context){
+
         Util.register(context);
 
     }
@@ -134,6 +135,7 @@ public class User extends Values {
 
         Assert.assertEquals(statusCode , 200, "Status code returned was false !");
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/changepass");
 
     }
 
