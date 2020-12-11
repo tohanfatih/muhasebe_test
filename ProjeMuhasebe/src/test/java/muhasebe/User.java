@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeClass;
 
+import java.io.File;
 import java.util.Random;
 
 import static io.restassured.RestAssured.*;
@@ -23,6 +24,7 @@ public class User extends Values {
         Util.register(context);
 
     }
+    /*
     @Test
     public void user (ITestContext context) {
 
@@ -57,7 +59,7 @@ public class User extends Values {
         //Assert.assertEquals(jsonPathEvaluator.get("password"),password1,  "Password returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user");
 
-    }
+    }*/
 
     @Test
     public void getComparisonOverview(ITestContext context){
@@ -84,32 +86,7 @@ public class User extends Values {
 
     }
 
-    @Test
-    public void getSpecificComparison(ITestContext context){
 
-        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
-        Response r = given()
-                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
-                .contentType("application/json").body("{\n" +
-                        "  \"enotebookid\": \"1234\"\n" +
-                        "}").
-                        when().
-                        post("/user/get_specific_comparison");
-
-        String body = r.getBody().asString();
-        int statusCode = r.getStatusCode();
-        String statusLine = r.getStatusLine();
-
-        System.out.println(statusCode);
-        System.out.println(statusLine);
-        System.out.println(body);
-
-        JsonPath jsonPathEvaluator = r.jsonPath();
-
-        Assert.assertEquals(statusCode , 200, "Status code returned was false !");
-        Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
-
-    }
 
     @Test
     public void changePass(ITestContext context){
@@ -137,6 +114,67 @@ public class User extends Values {
         Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
         Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/changepass");
 
+    }
+
+    @Test
+    public void sendXmlinZip(ITestContext context){
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/sendxmlinzip/";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token")).contentType("multipart/form-data")
+                .multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\gelen fatura_3_hata.zip")).
+                        multiPart("files",new File("C:\\Users\\ozdileto\\Desktop\\E-Defteri.xml")).
+                        multiPart("ebillid","random").
+                        multiPart("invoicetype","SATIS").
+                        multiPart("chosenbilltype","Gider Faturasi").
+                        multiPart("gelengiden","gelen").body("").
+                        when().
+                        post(endpoint);
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+        // String name = jsonPathEvaluator.get("name");
+
+        Assert.assertEquals(statusCode, 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/admindebug");
+
+    }
+
+    @Test
+    public void getSpecificComparison(ITestContext context){
+
+        RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
+        String endpoint = "/user/get_specific_comparison";
+        Response r = given()
+                .header("Authorization", "Bearer " + context.getAttribute("access_token"))
+                .contentType("application/json").body("{\n" +
+                        "  \"enotebookid\": \"YEV201905000008\"\n" +
+                        "}").
+                        when().
+                        post(endpoint);
+
+        String body = r.getBody().asString();
+        int statusCode = r.getStatusCode();
+        String statusLine = r.getStatusLine();
+
+        System.out.println(statusCode);
+        System.out.println(statusLine);
+        System.out.println(body);
+
+        JsonPath jsonPathEvaluator = r.jsonPath();
+
+        Assert.assertEquals(statusCode , 200, "Status code returned was false !");
+        Assert.assertEquals(statusLine , "HTTP/1.1 200 OK", "Status line returned was false !");
+        Util.getResponseTime("https://muhasebe-denetleme-backend.herokuapp.com/user/get_specific_comparison");
     }
 
 }

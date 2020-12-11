@@ -47,7 +47,7 @@ public class Admin extends Values {
     }
 
     @Test
-    public void adminLogin(ITestContext context){
+    public void listUsers(ITestContext context){
 
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
@@ -75,7 +75,7 @@ public class Admin extends Values {
     }
 
     @Test
-    public void changeCredentials(ITestContext context){
+    public void changeUserData(ITestContext context){
 
         RestAssured.baseURI = "https://muhasebe-denetleme-backend.herokuapp.com";
         Response r = given()
@@ -84,7 +84,7 @@ public class Admin extends Values {
                 .contentType("application/json").body("{\n" +
                         "  \"credential_to_be_changed\": \"name\",\n" +
                         "  \"value\": \"rasim1234\",\n" +
-                        "  \"user_id\": \"595\"\n" +
+                        "  \"user_id\": \""+getRandomid()+"\"\n" +
                         "}").
                         when().
                         post("/admin/change-user-data");
